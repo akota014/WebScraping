@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        async function runCode(){
+            await fetch('/run')
+            .then(
+                res =>{
+                    res.json().then(
+                        t1 => {
+                            console.log(t1);
+                            document.getElementById("demo").innerHTML=`These are the most happening topics as on ${t1.trial.twitter["Date of exe"]} & time is ${t1.trial.twitter["Time of exe"]}`;
+                            
+                            var myHtml='';
+                            let i=0;
+                            console.log(t1.trial.twitter["Name of trend"][i]);
+                            for(let i=0;i<t1.trial.twitter["Name of trend"].length;i++){
+                                myHtml+=`<h4>Name of trend : ${t1.trial.twitter["Name of trend"][i]}</h4><br></br>`;
+                                
+                            }
+                            document.getElementById("trend").innerHTML=myHtml;
+                            document.getElementById("JSON").innerHTML='<h4>Here’s a JSON extract of this record from the MongoDB:</h4>'
+                        }
+                    );}
+            )
+            .catch(err => console.error(err));
+            
+        }
+    </script>
+</head>
+<body>
+    <button onclick="runCode()">click Here to Run the script</button>
+
+    <h2 id="demo"></h2>
+
+    <div id="trend"></div>
+    <div id="JSON"></div>
+
+</body>
+</html>
